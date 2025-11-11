@@ -141,4 +141,5 @@ db.all(`
     }
     console.log("Todos os usuários: ", rows);
 });
+console.log();
 //# sourceMappingURL=app.js.map

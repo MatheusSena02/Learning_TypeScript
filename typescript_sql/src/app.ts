@@ -11,16 +11,15 @@ const db = new sqlite.Database("./database.db", sqlite.OPEN_READWRITE | sqlite.O
     console.log("Conexão concluída com sucesso!");
 })
 
+//Criação das tabelas
+
 db.run(
     `CREATE TABLE IF NOT EXISTS Categoria (
         Id INTEGER PRIMARY KEY,
         Nome TEXT NOT NULL UNIQUE
     )
-    `
-, (err : Error) => {
-    if(err){
-        console.error("Erro ao criar tabela", err.message);
-    }}
+    `, 
+    (err : Error) => console.error("Erro ao criar tabela", err.message)
 )
 
 db.run(
@@ -32,11 +31,7 @@ db.run(
         Id_Categoria INTEGER,
         FOREIGN KEY (Id_Categoria) REFERENCES Categoria(Id)
     )`,
-    (err : Error) =>{
-        if(err){
-        console.error("Erro ao criar tabela", err.message);
-        }
-    }
+    (err : Error) => console.error("Erro ao criar tabela", err.message)
 )
 
 db.run(
@@ -47,11 +42,7 @@ db.run(
     Telefone TEXT,
     Endereco TEXT
     )`,
-    (err : Error) =>{
-        if(err){
-        console.error("Erro ao criar tabela", err.message);
-        }
-    }
+    (err : Error) => console.error("Erro ao criar tabela", err.message)
 )
 
 db.run(
@@ -62,11 +53,7 @@ db.run(
     CHECK (Quantidade > 0),
     FOREIGN KEY (Id_Produto) REFERENCES Produto(Id)
     )`,
-    (err : Error) =>{
-        if(err){
-        console.error("Erro ao criar tabela", err.message);
-        }
-    }
+    (err : Error) => console.error("Erro ao criar tabela", err.message)
 )
 
 db.run(
@@ -79,13 +66,11 @@ db.run(
     FOREIGN KEY (Id_ItensPedido) REFERENCES ItensPedido(Id),
     FOREIGN KEY (Id_Cliente) REFERENCES Cliente(Id)
     )`,
-    (err : Error) =>{
-        if(err){
-        console.error("Erro ao criar tabela", err.message);
-        }
-    }
+    (err : Error) => console.error("Erro ao criar tabela", err.message)
 )
 
+
+//Populando banco de dados
 
 db.run(
     `
@@ -159,6 +144,11 @@ db.run(
     `
 )
 
+
+
+
+
+
 interface Produto{
     Id : number,
     Nome: string,
@@ -182,4 +172,3 @@ db.all(
         console.log("Todos os usuários: ", rows);
     }
 )
-
